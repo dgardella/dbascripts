@@ -1,0 +1,16 @@
+select owner,sum(bytes)/1024/1024/1024 as size_in_gb
+from dba_segments group by owner
+order by 2 desc ;
+
+
+SELECT owner, segment_name, segment_type, partition_name, ROUND(bytes/(1024*1024),2) SIZE_MB, tablespace_name 
+FROM DBA_SEGMENTS 
+WHERE 
+--AND TABLESPACE_NAME LIKE 'COSTE%' 
+--AND SEGMENT_NAME LIKE 'P2010201%' 
+--AND partition_name LIKE 'P20100201%'
+--AND segment_type = 'TABLE'
+OWNER = 'SYS' 
+AND ROUND(bytes/(1024*1024),2) > 100
+ORDER BY bytes DESC;
+
